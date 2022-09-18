@@ -1,3 +1,24 @@
 import { loginUser } from "./auth";
-import { getAllApartment, updateApartment, deleteApartment } from "./apartment";
-export { loginUser, getAllApartment, updateApartment, deleteApartment };
+import {
+  getAllApartment,
+  updateApartment,
+  deleteApartment,
+  saveApartment,
+} from "./apartment";
+import {
+  saveTenant,
+  deleteTenant,
+  updateTenant,
+  getAllTenant,
+} from "./tenants";
+export {
+  loginUser,
+  getAllApartment,
+  updateApartment,
+  deleteApartment,
+  saveApartment,
+  saveTenant,
+  deleteTenant,
+  updateTenant,
+  getAllTenant,
+};

@@ -1,6 +1,6 @@
-import config from "./configComponent";
+import config from "../configDataTable";
 
-const config: config[] = [
+const configApartment: config[] = [
   {
     field: "id",
     header: "",
@@ -50,4 +50,4 @@ const config: config[] = [
     sortable: true,
   },
 ];
-export default config;
+export default configApartment;

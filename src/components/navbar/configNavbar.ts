@@ -1,4 +1,6 @@
-const items = [
+import { usesecurityStore } from "@/store/security";
+
+const configNavbar = [
   {
     label: "Utilisateur",
     icon: "pi pi-user",
@@ -24,6 +26,15 @@ const items = [
     icon: "pi  pi-dollar",
     to: "sheet?type=payment",
   },
+  {
+    label: "Déconnexion",
+    icon: "pi pi-power-off",
+    to: "login",
+    command: () => {
+      const store = usesecurityStore();
+      store.token = "";
+    },
+  },
 ];
 
-export default items;
+export default configNavbar;

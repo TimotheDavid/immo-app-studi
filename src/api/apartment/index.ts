@@ -1,21 +1,28 @@
 import { AxiosResponse } from "axios";
-import { ApartmentResponse, UpdateApartment } from "immo-interface";
-import { http, setHeader } from "../http";
+import {
+  ApartmentResponse,
+  CreateApartement,
+  UpdateApartment,
+} from "immo-interface";
+import { http } from "../http";
 
-function getAllApartment(
-  token: string
-): Promise<AxiosResponse<ApartmentResponse[]>> {
-  return http.get<ApartmentResponse[]>("/api/apartment", setHeader(token));
+const BASE_URL = "/api/apartment";
+
+function getAllApartment(): Promise<AxiosResponse<ApartmentResponse[]>> {
+  return http.get<ApartmentResponse[]>(BASE_URL);
 }
 
-function updateApartment(
-  token: string,
-  data: UpdateApartment
-): Promise<AxiosResponse> {
-  return http.put("/api/apartment", data, setHeader(token));
+function updateApartment(data: UpdateApartment): Promise<AxiosResponse> {
+  console.log(data);
+  return http.put(BASE_URL, data);
 }
 
-function deleteApartment(token: string, id: string): Promise<AxiosResponse> {
-  return http.delete("/api/apartement/" + id, setHeader(token));
+function saveApartment(data: CreateApartement): Promise<AxiosResponse> {
+  return http.post(BASE_URL, data);
 }
-export { getAllApartment, updateApartment, deleteApartment };
+
+function deleteApartment(id: string): Promise<AxiosResponse> {
+  return http.delete(BASE_URL + "/" + id);
+}
+
+export { getAllApartment, updateApartment, deleteApartment, saveApartment };

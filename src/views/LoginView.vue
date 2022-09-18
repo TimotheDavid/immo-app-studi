@@ -41,15 +41,14 @@ import Message from "primevue/message";
 
 import { LoginUser } from "immo-interface";
 import { ref } from "vue";
-import { loginUser } from "@/api";
-import { usesecurityStore } from "../store/security";
+import { usesecurityStore } from "@/store/security";
 import { useRouter } from "vue-router";
+import axios from "axios";
 const name = ref("");
 const email = ref("");
 const password = ref("");
 const found = ref(false);
 const router = useRouter();
-
 const securityStore = usesecurityStore();
 
 async function login() {
@@ -59,18 +58,16 @@ async function login() {
   };
 
   try {
-    const response = await loginUser(user);
-    if (response.status == 200) {
+    const response = await axios.post("http://localhost:8080/auth/login", user);
+    console.log(response);
+    if (response.data.token != undefined) {
       securityStore.token = response.data.token;
       router.push("dashboard");
     }
   } catch (error: Error) {
+    console.log(error);
     found.value = true;
   }
-
-  return {
-    login,
-  };
 }
 </script>
 

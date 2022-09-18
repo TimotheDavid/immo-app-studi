@@ -1,4 +1,4 @@
-/* eslint-disable vue/multi-word-component-names */
+/* eslint-disable  vue/multi-word-component-names*/
 import { createApp } from "vue";
 import App from "./App.vue";
 import "./registerServiceWorker";
@@ -13,20 +13,32 @@ import "primeicons/primeicons.css";
 import InputText from "primevue/inputtext";
 import MegaMenu from "primevue/megamenu";
 import DataTable from "primevue/datatable";
-import NavBar from "./components/dataTable/NavBar.vue";
+import Toolbar from "primevue/toolbar";
+import Button from "primevue/button";
+import NavBar from "./components/navbar/NavBar.vue";
+import Dialog from "primevue/dialog";
+import TemplateHeader from "./components/misc/TemplateHeader.vue";
 import Column from "primevue/column";
+import InputNumber from "primevue/inputnumber";
+import Calendar from "primevue/calendar";
+import Dropdown from "primevue/dropdown";
+
 const pinia = createPinia();
 const app = createApp(App);
 
-app.component("PaymentComponent", {
-  template: "#payment",
-});
-
+app.use(pinia);
+app.component("Dropdown", Dropdown);
+app.component("Calendar", Calendar);
+app.component("InputNumber", InputNumber);
+app.component("Dialog", Dialog);
+app.component("Button", Button);
+app.component("Toolbar", Toolbar);
+app.component("TemplateHeader", TemplateHeader);
 app.component("NavBar", NavBar);
 app.component("InputText", InputText);
 app.component("MegaMenu", MegaMenu);
 app.component("DataTable", DataTable);
 app.component("Column", Column);
-app.use(pinia);
+
 app.use(PrimeVue);
 app.use(router).mount("#app");
