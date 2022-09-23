@@ -1,7 +1,6 @@
 import { http } from "../http";
-import { CreateRent } from "immo-interface";
+import { CreateRent, RentTenant } from "immo-interface";
 import { AxiosResponse } from "axios";
-import { RentTenant } from "@/interface/RentTenant";
 
 function saveRent(rent: CreateRent): Promise<AxiosResponse> {
   return http.post("/api/rent", rent);

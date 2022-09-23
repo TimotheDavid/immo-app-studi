@@ -1,7 +1,7 @@
 import { http } from "../http";
 import { CreatePayment, UpdatePayment } from "immo-interface";
 import { AxiosResponse } from "axios";
-import { PaymentData } from "@/interface/PaymentData";
+import { PaymentData } from "immo-interface";
 
 const BASE_URL = "/api/payment";
 function updatePayment(payment: UpdatePayment): Promise<AxiosResponse> {
