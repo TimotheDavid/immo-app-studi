@@ -9,6 +9,7 @@ import PrimeVue from "primevue/config";
 import "primevue/resources/themes/saga-blue/theme.css";
 import "primevue/resources/primevue.min.css";
 import "primeicons/primeicons.css";
+import "primeflex/primeflex.css";
 
 import InputText from "primevue/inputtext";
 import MegaMenu from "primevue/megamenu";
@@ -23,11 +24,12 @@ import InputNumber from "primevue/inputnumber";
 import Calendar from "primevue/calendar";
 import Dropdown from "primevue/dropdown";
 import ToastService from "primevue/toastservice";
-
+import Toast from "primevue/toast";
 const pinia = createPinia();
 const app = createApp(App);
 app.use(ToastService);
 app.use(pinia);
+app.component("Toast", Toast);
 app.component("Dropdown", Dropdown);
 app.component("Calendar", Calendar);
 app.component("InputNumber", InputNumber);

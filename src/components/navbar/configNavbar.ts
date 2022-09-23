@@ -28,6 +28,7 @@ const configNavbar = [
     command: () => {
       const store = usesecurityStore();
       store.token = "";
+      sessionStorage.clear();
     },
   },
 ];

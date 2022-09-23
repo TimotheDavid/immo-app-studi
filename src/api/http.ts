@@ -11,7 +11,7 @@ const http = axios.create({
 http.interceptors.request.use((config) => {
   const security = usesecurityStore();
   if (config.headers != undefined) {
-    config.headers.Authorization += security.token;
+    config.headers.Authorization += security.getToken();
   }
   return config;
 });

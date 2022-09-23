@@ -190,6 +190,7 @@ import { ApartmentResponse, CreateRent, TenantResponse } from "immo-interface";
 import * as api from "@/api";
 import { AxiosResponse } from "axios";
 import { RentTenant } from "@/interface/RentTenant";
+import { useToast } from "primevue/usetoast";
 
 const rentSearch = ref({
   apartmentAddress: "",
@@ -206,6 +207,7 @@ const rentTenant = ref<RentTenant[]>([] as RentTenant[]);
 const findQuittance = ref<boolean>(false);
 const balanceSheet = ref<boolean>(false);
 const files = ref();
+const toast = useToast();
 async function findApartment() {
   const apartementList: AxiosResponse<ApartmentResponse[]> =
     await api.getAllApartment();
@@ -219,13 +221,11 @@ function findTenantRent() {
   const tenantRent = rentTenant.value.filter((rentTenantFind) =>
     rentTenantFind.email.includes(quittanceSearch.value.email)
   );
-  console.log(tenantRent[0]);
   quittanceSearch.value = tenantRent[0];
 }
 
 async function getQuittance() {
   const response = await api.getQuittance(quittanceSearch.value.rent);
-  console.log(response);
   if (response.status == 200) {
     const blob = new Blob([response.data], { type: "application/pdf" });
     const link = document.createElement("a");
@@ -240,7 +240,6 @@ async function getQuittance() {
 
 async function getBalanceSheet() {
   const response = await api.getBalanceSheet(quittanceSearch.value.rent);
-  console.log(response);
   if (response.status == 200) {
     const blob = new Blob([response.data], { type: "application/pdf" });
     const link = document.createElement("a");
@@ -283,6 +282,11 @@ async function save() {
 
   const response = await api.saveRent(saveObject);
   if (response.status < 300) {
+    toast.add({
+      severity: "sucess",
+      summary: "Location crée",
+      life: 3000,
+    });
     createDialog.value = false;
   }
 }

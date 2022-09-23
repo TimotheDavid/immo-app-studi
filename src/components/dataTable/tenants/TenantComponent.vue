@@ -3,6 +3,7 @@
     <TemplateHeader
       @onClickCreated="openNew"
       @onclickDelete="confirmDeleteSelected"
+      :selected="selected"
     />
     <DataTable
       :value="tenants"
@@ -177,7 +178,7 @@
       <div class="confirmation-content">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
         <span v-if="selectedTenants"
-          >Are you sure you want to delete
+          >Etes vous sur de vouloir enlever
           <b
             >{{ selectedTenants.civility }} {{ selectedTenants.name }}
             {{ selectedTenants.first_name }} ? </b
@@ -208,7 +209,8 @@ import { CreateTenant, TenantResponse, UpdateTenant } from "immo-interface";
 import config from "./TenantConfiguration";
 import * as api from "@/api";
 import { DataTableRowEditCancelEvent } from "primevue/datatable";
-import civility from "./civility.ts";
+import ErrorConfig from "@/components/misc/errorConfig";
+import { useToast } from "primevue/usetoast";
 
 const tenants = ref<TenantResponse[]>([] as TenantResponse[]);
 const selectedTenants = ref<TenantResponse>({} as TenantResponse);
@@ -218,7 +220,9 @@ const createDialog = ref(false);
 const createdTenant = ref<CreateTenant>({} as CreateTenant);
 const submitted = ref(false);
 const deleteDialog = ref(false);
-const civilityDrop = ref(civility);
+const selected = ref<boolean>();
+const errorConfig: ErrorConfig = new ErrorConfig("locataire");
+const toast = useToast();
 
 async function getAll(): Promise<void> {
   const tenantsData = await api.getAllTenant();
@@ -240,19 +244,27 @@ async function save(): Promise<void> {
   if (response.status != 200) {
     const getAllTenants = await api.getAllTenant();
     tenants.value = getAllTenants.data;
+    toast.add(errorConfig.saveError);
   }
   createDialog.value = false;
   createdTenant.value = {} as CreateTenant;
+  toast.add(errorConfig.saveSuccess);
 }
 
 function onRowSelect(event: { data: TenantResponse }) {
   selectedTenants.value = event.data as TenantResponse;
+  selected.value = true;
 }
 
 async function clickdelete() {
   if (selectedTenants.value) {
-    await api.deleteTenant(selectedTenants.value?.id);
-
+    const response = await api.deleteTenant(selectedTenants.value?.id);
+    console.log(response);
+    if (response.status == 200) {
+      toast.add(errorConfig.deleteSucess);
+    } else {
+      toast.add(errorConfig.deleteError);
+    }
     tenants.value = tenants.value.filter(
       (tenant) => tenant.id != selectedTenants.value.id
     );
@@ -276,8 +288,11 @@ async function onRowEditSave(event: DataTableRowEditCancelEvent) {
   tenants.value[index] = newData;
   const response = await api.updateTenant(newData as UpdateTenant);
   if (response.status != 200) {
+    toast.add(errorConfig.updateError);
     errors.value = true;
   }
+
+  toast.add(errorConfig.updateSucess);
 }
 
 onMounted(() => {

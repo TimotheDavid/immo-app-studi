@@ -3,6 +3,7 @@
     <TemplateHeader
       @onClickCreated="createDialog = true"
       @onclickDelete="confirmDeleteSelected = true"
+      :selected="selected"
     />
     <DataTable
       :value="payment"
@@ -316,6 +317,8 @@ import { CreatePayment, PaymentResponse, UpdatePayment } from "immo-interface";
 import { DataTableRowEditCancelEvent } from "primevue/datatable";
 import * as api from "@/api";
 import { RentTenant } from "@/interface/RentTenant";
+import { useToast } from "primevue/usetoast";
+import ErrorConfig from "@/components/misc/errorConfig";
 
 const createDialog = ref(false);
 const submitted = ref(false);
@@ -327,9 +330,13 @@ const editingRows = ref<PaymentResponse[]>([] as PaymentResponse[]);
 const createPayment = ref<CreatePayment>({} as CreatePayment);
 const rentSearch = ref<string>(" ");
 const rentTenant = ref<RentTenant[]>([] as RentTenant[]);
+const toast = useToast();
+const errorConfig: ErrorConfig = new ErrorConfig("payment");
 const rentIdValue = ref<{ rent: string; email: string }>(
   {} as { rent: string; email: string }
 );
+
+const selected = ref<boolean>(false);
 const originDropDown = ref([
   { name: "CAF", value: "CAF" },
   { name: "LOCATAIRE", value: "LOCATAIRE" },
@@ -375,20 +382,30 @@ async function onRowEditSave(event: DataTableRowEditCancelEvent) {
   payment.value[index] = newData;
 
   const response = await api.updatePayment(newData as UpdatePayment);
-  if (response.status != 200) {
+  if (response.status == 200) {
+    toast.add(errorConfig.updateSucess);
+  } else {
     errors.value = true;
+    toast.add(errorConfig.updateError);
   }
 }
 
 async function clickdelete() {
   if (selectedPayment.value) {
-    await api.deletePayment(selectedPayment.value.id);
+    const response = await api.deletePayment(selectedPayment.value.id);
+
+    if (response.status == 200) {
+      toast.add(errorConfig.deleteSucess);
+    } else {
+      toast.add(errorConfig.deleteError);
+    }
   }
 
   payment.value = payment.value.filter(
     (paymentObject) => paymentObject.id != selectedPayment.value.id
   );
-
+  selected.value = false;
+  selectedPayment.value = {} as PaymentResponse;
   confirmDeleteSelected.value = false;
 }
 
@@ -397,7 +414,12 @@ async function save() {
 
   createPayment.value.rent_id = rentIdValue.value.rent;
   const response = await api.savePayment(createPayment.value as CreatePayment);
-  console.log(response);
+
+  if (response.status == 200) {
+    toast.add(errorConfig.saveSuccess);
+  } else {
+    toast.add(errorConfig.saveError);
+  }
 
   createDialog.value = false;
   createPayment.value = {} as CreatePayment;
@@ -405,6 +427,7 @@ async function save() {
 
 function onRowSelect(event: { data: PaymentResponse }) {
   selectedPayment.value = event.data as PaymentResponse;
+  selected.value = true;
 }
 
 onMounted(() => {

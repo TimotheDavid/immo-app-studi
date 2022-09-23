@@ -61,6 +61,7 @@ async function login() {
     const response = await axios.post("http://localhost:8080/auth/login", user);
     if (response.data.token != undefined) {
       securityStore.token = response.data.token;
+      securityStore.setToCookies;
       router.push("dashboard");
     }
   } catch (error: Error) {

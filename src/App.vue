@@ -1,8 +1,11 @@
 <template>
   <router-view />
+  <Toast />
 </template>
 
-<style>
+<style lang="scss">
+@import "~primeflex/primeflex.css";
+@import "./assets/theme.css";
 html,
 body {
   margin: 0px !important;

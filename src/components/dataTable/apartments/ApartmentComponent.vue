@@ -3,6 +3,7 @@
     <TemplateHeader
       @onClickCreated="openNew"
       @onclickDelete="confirmDeleteSelected"
+      :selected="selected"
     />
     <DataTable
       :value="apartments"
@@ -199,6 +200,8 @@ import {
 import configApartment from "./apartmentConfig";
 import * as api from "@/api";
 import { DataTableRowEditCancelEvent } from "primevue/datatable";
+import { useToast } from "primevue/usetoast";
+import ErrorConfig from "@/components/misc/errorConfig";
 
 const apartments = ref<ApartmentResponse[]>([] as ApartmentResponse[]);
 const selectedApartment = ref<ApartmentResponse>({} as ApartmentResponse);
@@ -208,6 +211,9 @@ const createDialog = ref(false);
 const createdApartment = ref<CreateApartement>({} as CreateApartement);
 const submitted = ref(false);
 const deleteDialog = ref(false);
+const selected = ref<boolean>(false);
+const toast = useToast();
+let errorConfig: ErrorConfig = new ErrorConfig("appartment");
 
 async function getAll(): Promise<void> {
   const apartmentsData = await api.getAllApartment();
@@ -231,18 +237,27 @@ async function save(): Promise<void> {
   if (response.status != 200) {
     const getAllApartments = await api.getAllApartment();
     apartments.value = getAllApartments.data;
+    toast.add(errorConfig.saveError);
+  } else {
+    toast.add(errorConfig.saveSuccess);
   }
+
   createDialog.value = false;
   createdApartment.value = {} as CreateApartement;
 }
 
 function onRowSelect(event: { data: ApartmentResponse }) {
   selectedApartment.value = event.data as ApartmentResponse;
+  selected.value = true;
 }
 
 async function clickdelete() {
   if (selectedApartment.value) {
-    await api.deleteApartment(selectedApartment.value?.id);
+    const response = await api.deleteApartment(selectedApartment.value?.id);
+
+    if (response.status > 300 || response.status != 200) {
+      toast.add(errorConfig.deleteError);
+    }
 
     apartments.value = apartments.value.filter(
       (apartment) => apartment.id != selectedApartment.value.id
@@ -250,6 +265,9 @@ async function clickdelete() {
   }
 
   deleteDialog.value = false;
+  selectedApartment.value = {} as ApartmentResponse;
+  selected.value = false;
+  toast.add(errorConfig.deleteSucess);
 }
 
 function confirmDeleteSelected() {
@@ -268,7 +286,10 @@ async function onRowEditSave(event: DataTableRowEditCancelEvent) {
   const response = await api.updateApartment(newData as UpdateApartment);
   if (response.status != 200) {
     errors.value = true;
+    toast.add(errorConfig.updateError);
   }
+
+  toast.add(errorConfig.updateSucess);
 }
 
 onMounted(() => {

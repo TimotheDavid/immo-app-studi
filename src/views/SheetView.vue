@@ -4,6 +4,7 @@
   <Apartment v-if="template === 'apartment'" />
   <Payment v-if="template === 'payment'" />
   <Tenant v-if="template === 'tenant'" />
+  <Toast />
 </template>
 <script lang="ts" setup>
 import { useRoute } from "vue-router";
