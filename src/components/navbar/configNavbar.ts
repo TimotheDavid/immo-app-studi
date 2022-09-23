@@ -2,11 +2,6 @@ import { usesecurityStore } from "@/store/security";
 
 const configNavbar = [
   {
-    label: "Utilisateur",
-    icon: "pi pi-user",
-    to: "sheet?type=user",
-  },
-  {
     label: "Appartment",
     icon: "pi pi-building",
     to: "sheet?type=apartment",

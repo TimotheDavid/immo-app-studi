@@ -13,7 +13,6 @@ function getAllApartment(): Promise<AxiosResponse<ApartmentResponse[]>> {
 }
 
 function updateApartment(data: UpdateApartment): Promise<AxiosResponse> {
-  console.log(data);
   return http.put(BASE_URL, data);
 }
 

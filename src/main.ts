@@ -22,10 +22,11 @@ import Column from "primevue/column";
 import InputNumber from "primevue/inputnumber";
 import Calendar from "primevue/calendar";
 import Dropdown from "primevue/dropdown";
+import ToastService from "primevue/toastservice";
 
 const pinia = createPinia();
 const app = createApp(App);
-
+app.use(ToastService);
 app.use(pinia);
 app.component("Dropdown", Dropdown);
 app.component("Calendar", Calendar);

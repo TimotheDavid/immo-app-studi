@@ -10,7 +10,7 @@
       <Button
         label="Delete"
         icon="pi pi-trash"
-        class="p-button-danger"
+        class="p-button-danger mr-2"
         @click="deleteRow"
       />
     </template>
@@ -18,10 +18,11 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits } from "vue";
+import { defineEmits, toRefs, defineProps } from "vue";
 
 const emit = defineEmits(["onClickCreated", "onclickDelete"]);
-
+const props = defineProps(["quittance"]);
+const { quittance } = toRefs(props);
 function create() {
   emit("onClickCreated");
 }

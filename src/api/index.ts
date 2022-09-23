@@ -10,7 +10,17 @@ import {
   deleteTenant,
   updateTenant,
   getAllTenant,
+  getBalanceSheet,
 } from "./tenants";
+import { saveRent, getRentTenant, getQuittance } from "@/api/rent";
+
+import {
+  savePayment,
+  getPaymentData,
+  deletePayment,
+  updatePayment,
+} from "@/api/payment";
+
 export {
   loginUser,
   getAllApartment,
@@ -21,4 +31,12 @@ export {
   deleteTenant,
   updateTenant,
   getAllTenant,
+  saveRent,
+  savePayment,
+  getPaymentData,
+  deletePayment,
+  updatePayment,
+  getRentTenant,
+  getQuittance,
+  getBalanceSheet,
 };

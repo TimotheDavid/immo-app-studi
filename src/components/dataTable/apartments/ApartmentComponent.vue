@@ -228,8 +228,6 @@ async function save(): Promise<void> {
     createdApartment.value as CreateApartement
   );
 
-  console.log(response);
-
   if (response.status != 200) {
     const getAllApartments = await api.getAllApartment();
     apartments.value = getAllApartments.data;

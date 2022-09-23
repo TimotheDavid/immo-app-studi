@@ -59,13 +59,11 @@ async function login() {
 
   try {
     const response = await axios.post("http://localhost:8080/auth/login", user);
-    console.log(response);
     if (response.data.token != undefined) {
       securityStore.token = response.data.token;
       router.push("dashboard");
     }
   } catch (error: Error) {
-    console.log(error);
     found.value = true;
   }
 }

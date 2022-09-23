@@ -20,4 +20,15 @@ function deleteTenant(tenantId: string): Promise<AxiosResponse> {
   return http.delete(BASE_URL + "/" + tenantId);
 }
 
-export { getAllTenant, updateTenant, saveTenant, deleteTenant };
+function getBalanceSheet(rentId: string) {
+  return http.get(BASE_URL + "/sheet?rent=" + rentId, {
+    responseType: "blob",
+  });
+}
+export {
+  getAllTenant,
+  updateTenant,
+  saveTenant,
+  deleteTenant,
+  getBalanceSheet,
+};
