@@ -1,7 +1,6 @@
 /* eslint-disable  vue/multi-word-component-names*/
 import { createApp } from "vue";
 import App from "./App.vue";
-import "./registerServiceWorker";
 import router from "./router";
 import { createPinia } from "pinia";
 import PrimeVue from "primevue/config";

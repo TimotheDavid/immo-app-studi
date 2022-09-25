@@ -5,11 +5,6 @@
         class="w-full bg-blue-800 flex align-items-center justify-content-center"
       >
         <div class="w-5 h-20rem flex justify-content-around flex-column">
-          <span class="p-float-label m">
-            <InputText id="name" type="text" v-model="name" />
-            <label for="name">Nom</label>
-          </span>
-
           <span class="p-float-label">
             <InputText id="email" type="email" v-model="email" />
             <label for="email">Mail</label>
@@ -30,7 +25,12 @@
           </div>
         </div>
       </div>
-      <div class="w-full"></div>
+      <div class="w-full h-full flex justify-content-center align-items-center">
+        <img
+          src="@/assets/logo.png"
+          class="flex align-items-center justify-content-center"
+        />
+      </div>
     </div>
   </main>
 </template>
@@ -73,4 +73,9 @@ async function login() {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+img {
+  height: 15rem;
+  width: 15rem;
+}
+</style>
