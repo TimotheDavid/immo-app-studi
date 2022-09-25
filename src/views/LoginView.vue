@@ -58,7 +58,10 @@ async function login() {
   };
 
   try {
-    const response = await axios.post("http://localhost:8080/auth/login", user);
+    const response = await axios.post(
+      `${process.env.VUE_APP_API_URL}/auth/login`,
+      user
+    );
     if (response.data.token != undefined) {
       securityStore.token = response.data.token;
       securityStore.setToCookies;
