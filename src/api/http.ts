@@ -2,7 +2,7 @@ import { usesecurityStore } from "@/store/security";
 import axios from "axios";
 
 const http = axios.create({
-  baseURL: "http://immo-api.studi.timothedavid.fr:8080",
+  baseURL: "https://immo-api.studi.timothedavid.fr",
   headers: {
     Authorization: "Bearer ",
   },
