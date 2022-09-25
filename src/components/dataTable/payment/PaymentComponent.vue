@@ -149,7 +149,7 @@
     <Dialog
       v-model:visible="createDialog"
       :style="{ width: '450px' }"
-      header="Product Details"
+      header="Crée un payment"
       :modal="true"
       class="p-fluid"
     >
@@ -230,7 +230,7 @@
         <label for="form">Forme du payment</label>
         <Dropdown
           v-model="createPayment.from"
-          id="type"
+          id="form"
           :options="fromType"
           option-label="name"
           option-value="name"
@@ -243,7 +243,6 @@
         >
       </div>
       <div class="field">
-        <label for="rent">Addresse de l'appartment à louer</label>
         <div class="field">
           <label for="apartment">Addresse de l'apartment à louer</label>
           <InputText
@@ -251,6 +250,7 @@
             v-model.trim="rentSearch"
             required="true"
             @input="findRentId"
+            :disabled="rentTenant.length < 1"
             :class="{ 'p-invalid': submitted && !rentSearch }"
           />
         </div>
@@ -261,6 +261,13 @@
             required="true"
           />
         </div>
+
+        <small class="p-error" v-if="submitted && !rentIdValue.email"
+          >Un email de locataire est requis</small
+        >
+        <small class="p-error text-2xl" v-if="rentTenant < 1"
+          >Aucun apartment à louer !</small
+        >
       </div>
       <template #footer>
         <Button

@@ -26,7 +26,7 @@
     :modal="true"
     class="p-fluid"
   >
-    <div class="h-7rem justify-content-between my-3">
+    <div class="h-10rem justify-content-between">
       <div class="field">
         <label for="quittance"
           >Email principale du locataire pour le bilan du locataire</label
@@ -35,6 +35,7 @@
           id="quittance"
           v-model.trim="quittanceSearch.email"
           required="true"
+          :disabled="disableRentTenant"
           @input="findTenantRent"
           :class="{ 'p-invalid': submitted && !quittanceSearch }"
         />
@@ -46,6 +47,14 @@
           required="true"
         />
       </div>
+      <div>
+        <small class="p-error" v-if="submitted && !quittanceSearch.email"
+          >Un email de locataire est requis</small
+        >
+      </div>
+      <small class="p-error text-lg" v-if="disableRentTenant"
+        >Aucun locataire dans la base de donnée</small
+      >
     </div>
     <template #footer>
       <Button
@@ -59,6 +68,7 @@
         icon="pi pi-check"
         class="p-button-text"
         @click="getBalanceSheet"
+        :disabled="disableRentTenant"
       />
     </template>
   </Dialog>
@@ -78,6 +88,7 @@
           id="quittance"
           v-model.trim="quittanceSearch.email"
           required="true"
+          :disabled="disableRentTenant"
           @input="findTenantRent"
           :class="{ 'p-invalid': submitted && !quittanceSearch }"
         />
@@ -88,6 +99,11 @@
           v-model.trim="quittanceSearch.email"
           required="true"
         />
+      </div>
+      <div>
+        <small class="p-error text-lg" v-if="disableRentTenant"
+          >Aucun locataire dans la base de donnée</small
+        >
       </div>
     </div>
     <template #footer>
@@ -102,13 +118,14 @@
         icon="pi pi-check"
         class="p-button-text"
         @click="getQuittance"
+        :disabled="disableRentTenant"
       />
     </template>
   </Dialog>
   <Dialog
     v-model:visible="createDialog"
     :style="{ width: '450px' }"
-    header="Tenants Details"
+    header="Crée une location"
     :modal="true"
     class="p-fluid"
   >
@@ -119,6 +136,7 @@
           id="apartment"
           v-model.trim="rentSearch.apartmentAddress"
           required="true"
+          :disabled="disableRentTenant"
           @input="findApartment"
           :class="{ 'p-invalid': submitted && !rentSearch.apartmentAddress }"
         />
@@ -139,6 +157,7 @@
           id="tenantName"
           v-model.trim="rentSearch.emailTenant"
           required="true"
+          :disabled="disableRentTenant"
           @input="findTenant"
           :class="{ 'p-invalid': submitted && !rentSearch.emailTenant }"
         />
@@ -165,6 +184,11 @@
           :class="{ 'p-invalid': submitted && !rentSearch.deposit }"
         />
       </div>
+      <div>
+        <small class="p-error text-lg" v-if="disableRentTenant"
+          >Aucun locataire ou aucun appartment dans la base de donnée !</small
+        >
+      </div>
     </div>
     <template #footer>
       <Button
@@ -178,6 +202,7 @@
         icon="pi pi-check"
         class="p-button-text"
         @click="save"
+        :disabled="disableRentTenant"
       />
     </template>
   </Dialog>
@@ -289,6 +314,10 @@ async function save() {
     });
     createDialog.value = false;
   }
+}
+
+function disableRentTenant(): boolean {
+  return rentTenant.value.length < 1;
 }
 
 onMounted(() => {

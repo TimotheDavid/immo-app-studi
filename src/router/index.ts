@@ -40,7 +40,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
   const security = usesecurityStore();
-  if (security.token.length < 1 && to.name !== "login") {
+  if (security.getToken().length < 1 && to.name !== "login") {
     return { name: "login" };
   }
 });

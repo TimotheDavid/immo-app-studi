@@ -75,10 +75,11 @@
       <div class="field">
         <label for="gender">Genre</label>
         <Dropdown
+          id="gender"
           v-model="createdTenant.civility"
-          :options="civilityDrop"
-          optionLabel="name"
-          optionValue="code"
+          :options="civilities"
+          option-label="name"
+          option-value="name"
           placeholder="Civilité"
         />
         <small class="p-error" v-if="submitted && !createdTenant.civility"
@@ -223,6 +224,12 @@ const deleteDialog = ref(false);
 const selected = ref<boolean>();
 const errorConfig: ErrorConfig = new ErrorConfig("locataire");
 const toast = useToast();
+
+const civilities = ref([
+  { name: "MONSIEUR", value: "MONSIEUR" },
+  { name: "MADAME", value: "MADAME" },
+  { name: "AUTRE", value: "AUTRE" },
+]);
 
 async function getAll(): Promise<void> {
   const tenantsData = await api.getAllTenant();
