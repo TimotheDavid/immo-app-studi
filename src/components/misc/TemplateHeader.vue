@@ -3,13 +3,13 @@
     {{ selected }}
     <template #start>
       <Button
-        label="New"
+        label="Crée"
         icon="pi pi-plus"
         class="p-button-success mr-2"
         @click="create"
       />
       <Button
-        label="Delete"
+        label="Détruire"
         icon="pi pi-trash"
         class="p-button-danger mr-2"
         @click="deleteRow"
