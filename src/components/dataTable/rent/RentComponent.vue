@@ -52,19 +52,19 @@
           >Un email de locataire est requis</small
         >
       </div>
-      <small class="p-error text-lg" v-if="disableRentTenant()"
+      <small class="p-error text-lg" v-if="tenantAll.length < 1"
         >Aucun locataire dans la base de donnée</small
       >
     </div>
     <template #footer>
       <Button
-        label="Cancel"
+        label="Abandonner"
         icon="pi pi-times"
         class="p-button-text"
         @click="balanceSheet = false"
       />
       <Button
-        label="Save"
+        label="Sauver"
         icon="pi pi-check"
         class="p-button-text"
         @click="getBalanceSheet"
@@ -101,20 +101,20 @@
         />
       </div>
       <div>
-        <small class="p-error text-lg" v-if="disableRentTenant"
+        <small class="p-error text-lg" v-if="disableRentTenant()"
           >Aucun locataire dans la base de donnée</small
         >
       </div>
     </div>
     <template #footer>
       <Button
-        label="Cancel"
+        label="Abandonner"
         icon="pi pi-times"
         class="p-button-text"
         @click="findQuittance = false"
       />
       <Button
-        label="Save"
+        label="Sauver"
         icon="pi pi-check"
         class="p-button-text"
         @click="getQuittance"
@@ -192,13 +192,13 @@
     </div>
     <template #footer>
       <Button
-        label="Cancel"
+        label="Abandonner"
         icon="pi pi-times"
         class="p-button-text"
         @click="createDialog = false"
       />
       <Button
-        label="Save"
+        label="Sauver"
         icon="pi pi-check"
         class="p-button-text"
         @click="save"

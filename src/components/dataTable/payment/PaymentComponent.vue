@@ -272,13 +272,13 @@
       </div>
       <template #footer>
         <Button
-          label="Cancel"
+          label="Abandonner"
           icon="pi pi-times"
           class="p-button-text"
           @click="createDialog = false"
         />
         <Button
-          label="Save"
+          label="Sauver"
           icon="pi pi-check"
           class="p-button-text"
           @click="save"

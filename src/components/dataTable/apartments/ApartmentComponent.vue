@@ -145,13 +145,13 @@
 
       <template #footer>
         <Button
-          label="Cancel"
+          label="Abandonner"
           icon="pi pi-times"
           class="p-button-text"
           @click="hideDialog"
         />
         <Button
-          label="Save"
+          label="Sauver"
           icon="pi pi-check"
           class="p-button-text"
           @click="save"

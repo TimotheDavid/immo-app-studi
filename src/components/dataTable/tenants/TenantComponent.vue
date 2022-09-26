@@ -93,9 +93,7 @@
           v-model="createdTenant.birth_date"
           required="true"
           autofocus
-          :show-time="true"
-          hour-format="24"
-          date-format="MM/dd/yyyy"
+          date-format="dd/mm/yy"
           :class="{ 'p-invalid': submitted && !createdTenant.birth_date }"
         />
         <small class="p-error" v-if="submitted && !createdTenant.birth_date"
@@ -156,13 +154,13 @@
       </div>
       <template #footer>
         <Button
-          label="Cancel"
+          label="Abandonner"
           icon="pi pi-times"
           class="p-button-text"
           @click="hideDialog"
         />
         <Button
-          label="Save"
+          label="Sauver"
           icon="pi pi-check"
           class="p-button-text"
           @click="save"
