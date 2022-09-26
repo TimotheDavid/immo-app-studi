@@ -1,23 +1,29 @@
 import { loginUser } from "./auth";
 import {
-  getAllApartment,
-  updateApartment,
   deleteApartment,
+  getAllApartment,
   saveApartment,
+  updateApartment,
 } from "./apartment";
 import {
-  saveTenant,
   deleteTenant,
-  updateTenant,
   getAllTenant,
   getBalanceSheet,
+  saveTenant,
+  updateTenant,
 } from "./tenants";
-import { saveRent, getRentTenant, getQuittance } from "@/api/rent";
+import {
+  getQuittance,
+  getRent,
+  getRentTenant,
+  saveRent,
+  updateRent,
+} from "@/api/rent";
 
 import {
-  savePayment,
-  getPaymentData,
   deletePayment,
+  getPaymentData,
+  savePayment,
   updatePayment,
 } from "@/api/payment";
 
@@ -39,4 +45,6 @@ export {
   getRentTenant,
   getQuittance,
   getBalanceSheet,
+  getRent,
+  updateRent,
 };
