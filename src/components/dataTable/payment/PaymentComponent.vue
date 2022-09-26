@@ -52,7 +52,7 @@
         style="width: 25%"
       >
         <template #editor="{ data, field }">
-          <Calendar v-model="data[field]" autofocus />
+          <Calendar v-model="data[field]" autofocus dateFormat="MM/dd/yyyy" />
         </template>
       </Column>
       <Column
@@ -172,6 +172,7 @@
           v-model="createPayment.date_payment"
           input-id="date_payment"
           autofocus
+          date-format="MM/dd/yyyy"
           :class="{ 'p-invalid': submitted && !createPayment.date_payment }"
         />
         <small class="p-error" v-if="submitted && !createPayment.date_payment"

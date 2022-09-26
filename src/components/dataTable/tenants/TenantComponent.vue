@@ -95,7 +95,7 @@
           autofocus
           :show-time="true"
           hour-format="24"
-          date-format="dd-mm-yy"
+          date-format="MM/dd/yyyy"
           :class="{ 'p-invalid': submitted && !createdTenant.birth_date }"
         />
         <small class="p-error" v-if="submitted && !createdTenant.birth_date"
