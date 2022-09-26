@@ -437,9 +437,11 @@ async function save() {
     out_date: "",
     description_in: "",
     description_out: "",
-    amount: 0,
+    rent: 0,
     deposit: rentSearch.value.deposit,
   };
+
+  console.log(saveObject);
 
   const response = await api.saveRent(saveObject);
   if (response.status < 300) {

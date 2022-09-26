@@ -219,9 +219,8 @@ async function getAll(): Promise<void> {
   const apartmentsData = await api.getAllApartment();
   if (apartmentsData.status != 200) {
     errors.value = true;
-  } else {
-    apartments.value = apartmentsData.data;
   }
+  apartments.value = apartmentsData.data;
 }
 
 function hideDialog() {
