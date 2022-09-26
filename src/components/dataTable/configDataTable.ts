@@ -3,4 +3,5 @@ export default interface ConfigDataTable {
   header: string;
   hidden: boolean | undefined;
   sortable: boolean | undefined;
+  disabled: boolean | undefined;
 }
